@@ -1,0 +1,24 @@
+{% extends 'Login_App/home.html' %}
+{% load static %}
+{% block body_block %}
+ <div class="form-section" style="padding-top:100px;padding-bottom:100px;">
+   <div class="heading-form">
+     <h2>User Registration Form</h2>
+   </div>
+   <hr>
+   <form enctype="multipart/form-data" method="POST">
+     {{ user_form.as_p }}
+     {{ user_info_form.as_p }}
+     {% csrf_token %}
+
+     <input type="submit" name="submit" value="Register">
+   </form>
+ </div>
+
+
+
+
+
+
+
+{% endblock %}
