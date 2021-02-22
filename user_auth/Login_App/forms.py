@@ -5,9 +5,10 @@ from Login_App.models import UserInformation
 #Forms here
 
 class UserForm(forms.ModelForm):
+    password = forms.CharField(widget = forms.PasswordInput())
     class Meta():
         model = User
-        fields = ('username', 'email', 'password')
+        fields = ('username', 'password','email')
 
 class UserInformationForm(forms.ModelForm):
     class Meta():

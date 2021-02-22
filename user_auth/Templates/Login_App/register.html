@@ -1,6 +1,9 @@
 {% extends 'Login_App/home.html' %}
 {% load static %}
 {% block body_block %}
+{% if registered %}
+<div class="alert alert-success"> Congratulations! You have successfully registered!</div>
+{% else %}
  <div class="form-section" style="padding-top:100px;padding-bottom:100px;">
    <div class="heading-form">
      <h2>User Registration Form</h2>
@@ -13,6 +16,7 @@
 
      <input type="submit" name="submit" value="Register">
    </form>
+   {% endif %}
  </div>
 
 
