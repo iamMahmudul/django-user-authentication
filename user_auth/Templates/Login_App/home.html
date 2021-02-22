@@ -18,16 +18,22 @@
 
       <ul class="nav justify-content-center">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'Login_App:home'%}">Home</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'Login_App:index'%}">Home</a>
         </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'Login_App:user_logout'%}">Log-Out</a>
+        </li>
+        {% else %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'Login_App:register'%}">Register</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Login</a>
+          <a class="nav-link" href="{% url 'Login_App:login'%}">Login</a>
         </li>
+        {% endif %}
       </ul>
-      
+
 
       {% block body_block %}
       {% endblock %}

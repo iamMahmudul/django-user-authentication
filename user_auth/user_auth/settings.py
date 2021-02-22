@@ -118,3 +118,7 @@ STATICFILES_DIRS = [
 #Media files
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+#login_page
+
+LOGIN_URL = '/login/'

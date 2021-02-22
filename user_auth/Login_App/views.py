@@ -1,9 +1,49 @@
 from django.shortcuts import render
 from Login_App.forms import UserForm, UserInformationForm
+from django.contrib.auth.models import User
+from Login_App.models import UserInformation
 
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 # My views here.
-def home(request):
-    return render(request, 'Login_App/index.html')
+
+def login_page(request):
+    return render(request, 'Login_App/login.html')
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('Login_App:index'))
+            else:
+                return HttpResponse("Account is not active!!")
+        else:
+            return HttpResponse("Invalid credentials!")
+    else:
+        return HttpResponseRedirect(reverse('Login_App:login'))
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('Login_App:index'))
+
+
+def index(request):
+    dict={}
+    if request.user.is_authenticated:
+        current_user = request.user
+        user_id = current_user.id
+        user_basic_info = User.objects.get(pk=user_id)
+        user_more_info = UserInformation.objects.get(user__pk=user_id)
+        dict = {'user_basic_info':user_basic_info, 'user_more_info':user_more_info}
+    return render(request, 'Login_App/index.html', context=dict)
+
 
 def register(request):
 
